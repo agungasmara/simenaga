@@ -322,9 +322,9 @@ function limitString($text, $length = 100, $ending = '...', $exact = false, $con
 		return date('Y-m-d', strtotime("+".$month." months", strtotime($date)));
 	}
 
-	public function formatIDR($curr)
+	public function formatIDR($nominal,$curr="Rp ")
 	{		
-		return "Rp " . number_format($curr,0,',','.');
+		return $curr . number_format($nominal,0,',','.');
 	}
 	
 
@@ -408,6 +408,36 @@ function limitString($text, $length = 100, $ending = '...', $exact = false, $con
 	 
 		return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 	}
+
+	function bln_indo($tanggal){
+		$bulan = array (
+			1 =>   'Januari',
+			'Februari',
+			'Maret',
+			'April',
+			'Mei',
+			'Juni',
+			'Juli',
+			'Agustus',
+			'September',
+			'Oktober',
+			'November',
+			'Desember'
+		);
+		$pecahkan = explode('-', $tanggal);
+		
+		// variabel pecahkan 0 = tanggal
+		// variabel pecahkan 1 = bulan
+		// variabel pecahkan 2 = tahun
+	 
+		return $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+	}
+
+	function clean($string) {
+	   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+
+	   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+	}
 	
 	
     public function nohtml($message)
@@ -468,16 +498,19 @@ function limitString($text, $length = 100, $ending = '...', $exact = false, $con
         }
     }
 
-	public function send_email($subject, $body, $emailt)
+	public function send_email($subject, $body, $emailt, $from="",$replayto="", $appName="", $cc="", $bcc="", $attachment="")
     {
         $CI =& get_instance();
         $CI->load->library('email');
 
         //$CI->email->from($CI->settings->info->site_email, $CI->settings->info->site_name);
         
-		$CI->email->from('info@pspbmn.com', "Aplikasi APUSE PSP BMN");
+		$CI->email->from($from, $appName);
         $CI->email->to($emailt);
-        $CI->email->bcc('dode.agung.asmara@gmail.com');
+        $CI->email->cc($cc);
+        $CI->email->bcc($bcc);
+        $CI->email->attach($bcc);
+        $CI->email->reply_to($replayto);
 
         $CI->email->subject($subject);
         $CI->email->message($body);

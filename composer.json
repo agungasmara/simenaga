@@ -12,8 +12,9 @@
 	},
 	"require": {
 		"php": ">=5.2.4",
-		"illuminate/database": "*",
-		"php-curl-class/php-curl-class": "*"
+		"php-curl-class/php-curl-class": "*",
+		"phpoffice/phpspreadsheet": "^1.10",
+		"phpoffice/phpword": "v0.16.*"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "1.1.*"

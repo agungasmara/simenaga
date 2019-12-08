@@ -29,9 +29,6 @@
       <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
       <link rel="stylesheet" href="<?php echo $this->common->theme_hideend();?>ltetheme/dist/css/skins/_all-skins.min.css">
-      <!-- Morris chart -->
-      <link rel="stylesheet" href="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/morris.js/morris.css">
-     
       <!-- jvectormap -->
       <link rel="stylesheet" href="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/jvectormap/jquery-jvectormap.css">
       <!-- Date Picker -->
@@ -135,8 +132,11 @@
                      ($this->user->info->admin_settings || $this->user->info->admin_members || $this->user->info->admin_payment)
                      
                      ) : ?>                  
-                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/pengajuan/") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span> Pengajuan PSP BMN</a></li> 
-                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/pengajuan/status") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Status Pengajuan PSP BMN</a></li>
+                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/lists") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span> Rekap Gaji</a></li> 
+                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Add Gaji</a></li>
+                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/pegawai/lists") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Manajemen Pegawai</a></li>
+                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/download") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Download Rekap Gaji</a></li>
+                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/potongan") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Input Potongan Gaji</a></li>
 
                   <?php endif; ?>
 
@@ -191,17 +191,6 @@
       <script src="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
       <!-- Boostrap Switch -->
       <script src="<?php echo $this->common->theme_hideend();?>plugins/bootstrap-switch-master/dist/js/bootstrap-switch.min.js"></script>
-      <!-- Morris.js charts -->
-      <script src="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/raphael/raphael.min.js"></script>
-      <script src="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/morris.js/morris.min.js"></script>
-      <!-- Sparkline -->
-      <script src="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-
-      <!-- jvectormap -->
-      <script src="<?php echo $this->common->theme_hideend();?>ltetheme/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-      <script src="<?php echo $this->common->theme_hideend();?>ltetheme/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-      <!-- jQuery Knob Chart -->
-      <script src="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
       <!-- daterangepicker -->
       <script src="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/moment/min/moment.min.js"></script>
       <script src="<?php echo $this->common->theme_hideend();?>ltetheme/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>

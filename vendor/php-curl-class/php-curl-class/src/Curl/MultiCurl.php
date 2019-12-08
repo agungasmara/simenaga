@@ -85,15 +85,41 @@ class MultiCurl
 
         // Use tmpfile() or php://temp to avoid "Too many open files" error.
         if (is_callable($mixed_filename)) {
-            $callback = $mixed_filename;
-            $curl->downloadCompleteCallback = $callback;
+            $curl->downloadCompleteCallback = $mixed_filename;
+            $curl->downloadFileName = null;
             $curl->fileHandle = tmpfile();
         } else {
             $filename = $mixed_filename;
-            $curl->downloadCompleteCallback = function ($instance, $fh) use ($filename) {
-                file_put_contents($filename, stream_get_contents($fh));
-            };
-            $curl->fileHandle = fopen('php://temp', 'wb');
+
+            // Use a temporary file when downloading. Not using a temporary file can cause an error when an existing
+            // file has already fully completed downloading and a new download is started with the same destination save
+            // path. The download request will include header "Range: bytes=$filesize-" which is syntactically valid,
+            // but unsatisfiable.
+            $download_filename = $filename . '.pccdownload';
+            $this->downloadFileName = $download_filename;
+
+            // Attempt to resume download only when a temporary download file exists and is not empty.
+            if (is_file($download_filename) && $filesize = filesize($download_filename)) {
+                $first_byte_position = $filesize;
+                $range = $first_byte_position . '-';
+                $curl->setOpt(CURLOPT_RANGE, $range);
+                $curl->fileHandle = fopen($download_filename, 'ab');
+
+                // Move the downloaded temporary file to the destination save path.
+                $curl->downloadCompleteCallback = function ($instance, $fh) use ($download_filename, $filename) {
+                    // Close the open file handle before renaming the file.
+                    if (is_resource($fh)) {
+                        fclose($fh);
+                    }
+
+                    rename($download_filename, $filename);
+                };
+            } else {
+                $curl->fileHandle = fopen('php://temp', 'wb');
+                $curl->downloadCompleteCallback = function ($instance, $fh) use ($filename) {
+                    file_put_contents($filename, stream_get_contents($fh));
+                };
+            }
         }
 
         $curl->setOpt(CURLOPT_FILE, $curl->fileHandle);
@@ -785,7 +811,7 @@ class MultiCurl
                                 curl_multi_remove_handle($this->multiCurl, $curl->curl);
 
                                 $curlm_error_code = curl_multi_add_handle($this->multiCurl, $curl->curl);
-                                if (!($curlm_error_code === CURLM_OK)) {
+                                if ($curlm_error_code !== CURLM_OK) {
                                     throw new \ErrorException(
                                         'cURL multi add handle error: ' . curl_multi_strerror($curlm_error_code)
                                     );
@@ -952,12 +978,12 @@ class MultiCurl
         // Use a random proxy for the curl instance when proxies have been set
         // and the curl instance doesn't already have a proxy set.
         if (is_array($this->proxies) && $curl->getOpt(CURLOPT_PROXY) === null) {
-            $random_proxy = ArrayUtil::array_random($this->proxies);
+            $random_proxy = ArrayUtil::arrayRandom($this->proxies);
             $curl->setProxy($random_proxy);
         }
 
         $curlm_error_code = curl_multi_add_handle($this->multiCurl, $curl->curl);
-        if (!($curlm_error_code === CURLM_OK)) {
+        if ($curlm_error_code !== CURLM_OK) {
             throw new \ErrorException('cURL multi add handle error: ' . curl_multi_strerror($curlm_error_code));
         }
 
