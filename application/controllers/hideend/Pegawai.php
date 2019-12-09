@@ -83,7 +83,7 @@ class Pegawai extends CI_Controller
             $vueComponentPegawaiTable.
 			'<script src="'.$this->common->theme_hideend().'plugins/js/appPegawai.js"></script>'
 			);
-		$this->template->loadContent("hidepage/Pegawai/lists.php", array(
+		$this->template->loadContent("hidepage/pegawai/lists.php", array(
 			)
 		);
 	}
