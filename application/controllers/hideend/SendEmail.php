@@ -13,21 +13,27 @@ class SendEmail extends CI_Controller
 
 	}
 
-	public function send() 
+public function send() 
     {
-        $dataEmail = $this->pengajuan_model->get_emailQueue();
+        $dataEmail = $this->penggajian_model->get_emailQueue();
         foreach ($dataEmail->result() as $res) {
            //SEND ke CUSTOMER
-            $replayto             = "aplikasiapuse@gmail.com";
+            $replayto = "putu.ikha@gmail.com";
             $emailCustomer = $res->email_send;
             $body = $res->message;
             $subject = $res->subject;
-           	$this->common->send_email($subject, $body, $emailCustomer, $replayto);
+            $from = "putu.ikha@gmail.com";
+            $replayto = "putu.ikha@gmail.com";
+            $appName = "SiMenAga";
+            $bcc = "dode.agung.asmara@gmai.com";
+            $attachment = $res->attach;
+
+            $this->common->send_email($subject, $body, $emailCustomer, $from="",$replayto="", $appName="", $cc="", $bcc="", $attachment="");
 
             $dataEmail = array(
                             "status" => 1
                         );
-            $this->pengajuan_model->update_emailQueue($res->id,$dataEmail);
+            $this->penggajian_model->update_emailQueue($res->id,$dataEmail);
         }
     }
 	
