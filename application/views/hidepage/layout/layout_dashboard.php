@@ -131,10 +131,12 @@
                   if($this->user->loggedin && isset($this->user->info->user_role_id) &&
                      ($this->user->info->admin_settings || $this->user->info->admin_members || $this->user->info->admin_payment)
                      
-                     ) : ?>                  
-                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/lists") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span> Rekap Gaji</a></li> 
+                     ) : ?>            
+                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/pegawai/lists") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Manajemen Pegawai</a></li>      
+                    
                      <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Add Gaji</a></li>
-                     <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/pegawai/lists") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Manajemen Pegawai</a></li>
+                     
+                      <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/lists") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span> Rekap Gaji</a></li> 
                      <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/download") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Download Rekap Gaji</a></li>
                      <li class="<?php if(isset($activeLink['settings']['general'])) echo "active" ?>"><a href="<?php echo site_url("hideend/penggajian/potongan") ?>"><span class="glyphicon glyphicon-cog sidebar-icon"></span>Input Potongan Gaji</a></li>
 

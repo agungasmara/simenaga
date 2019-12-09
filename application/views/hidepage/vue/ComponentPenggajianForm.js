@@ -109,7 +109,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group" v-else>
-                                                <label for="exampleInputEmail1" class="col-sm-2 control-label">Tunjangan Jabatan</label>
+                                                <label for="exampleInputEmail1" class="col-sm-2 control-label">Tunjangan Kejahteraan</label>
                                                 <div class="col-sm-5">
                                                      <money  type="text" v-bind="money" class="form-control" v-validate="'required|numeric'" name="tunjangan_jabatan" v-model="penggajian.tunjangan_jabatan" placeholder="" data-vv-scope="step1" :disabled="true"> </money>
                                                     <span class="text-red">{{ errors.first('step1.tunjangan_jabatan') }}</span>
