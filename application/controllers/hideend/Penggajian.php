@@ -262,7 +262,7 @@ class Penggajian extends CI_Controller
                          ->setCellValue('G'.$row,  $dt->bpd_tampaksiring)
                          ->setCellValue('H'.$row,  $dt->bpd_sukawati)
                          ->setCellValue('I'.$row,  $dt->potongan_lain)
-                         ->setCellValue('J'.$row, '=D'.$row.' -SUM(D'.$row.':I'.$row.')');
+                         ->setCellValue('J'.$row, '=D'.$row.' -SUM(E'.$row.':I'.$row.')');
         }
         $row = $row + 1;
         $objWorksheet->insertNewRowBefore($row,1);
