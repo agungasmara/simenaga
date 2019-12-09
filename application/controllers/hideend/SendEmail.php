@@ -9,7 +9,7 @@ class SendEmail extends CI_Controller
 		$this->load->model("content_model");
 		$this->load->model("forex_model");
 		$this->load->model("user_model");
-		$this->load->model("pengajuan_model");
+		$this->load->model("penggajian_model");
 
 	}
 
