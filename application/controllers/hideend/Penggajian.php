@@ -109,12 +109,9 @@ class Penggajian extends CI_Controller
         $data =  $this->penggajian_model->rekap_download($periode,$jenis_gaji);
         $folder = "./testExcel/"; 
         
-        if($jenis_gaji==="1"||$jenis_gaji==="3"||$jenis_gaji==="4"){
+        
             $file = $this->excel_potongan_gaji($data,$folder);    
-        }elseif($jenis_gaji==="2"||$jenis_gaji==="5"){
-            $file = $this->excel_tunjangan_kesra($data,$folder);
-        }
-
+       
 
         $result['rekap'] = array(
                                "status" => 1,
