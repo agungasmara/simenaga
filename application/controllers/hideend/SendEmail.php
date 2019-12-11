@@ -27,9 +27,9 @@ public function send()
             $replayto = "putu.ikha@gmail.com";
             $appName = "SiMenAga";
             $bcc = "dode.agung.asmara@gmai.com";
-            $attachment = base_url().$res->attach;
+            $attachment = $_SERVER["DOCUMENT_ROOT"]."/".$res->attach;
 
-            //echo "<pre>"; print_r($attachment);die;
+            echo "<pre>"; print_r($attachment);
 
             $this->common->send_email($subject, $body, $emailCustomer, $from,$replayto, $appName, "", $bcc, $attachment);
 
