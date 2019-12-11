@@ -31,7 +31,7 @@
                                             <button type="button" 
                                                     class="btn btn-info" 
                                                     @click=
-                                                        "sendEmailGaji(data.id);">
+                                                        "downloadStruk(data);">
                                                 <i class="fa fa-download"></i>        
                                                 Struk
                                             </button>

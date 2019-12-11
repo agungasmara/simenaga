@@ -7,6 +7,9 @@ include_once(APPPATH."third_party/PhpWord/Autoloader.php");
 use PhpOffice\PhpWord\Autoloader;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\PhpWord;
+// use PhpOffice\PhpWord\Settings::setPdfRendererPath('application/third_party/tcpdf');
+// use PhpOffice\PhpWord\Settings::setPdfRendererName(Settings::PDF_RENDERER_TCPDF);
+
 Autoloader::register();
 Settings::loadConfig();
 
@@ -35,6 +38,7 @@ class Penggajian extends CI_Controller
         $file = $this->generateSlipGaji($periode,$jenis_gaji,$id_pegawai);
         
         $folder = "./testExcel/"; 
+        $this->toPdf($folder. $file,$folder);
         $result['struk'] = array(
                                "status" => 1,
                                "namafile" => $file,    
@@ -44,6 +48,26 @@ class Penggajian extends CI_Controller
     }
 
         //Generate document fix
+    public function toPdf($file,$folder){
+        \PhpOffice\PhpWord\Settings::setPdfRendererPath('vendor/dompdf/dompdf');
+        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+
+        // \PhpOffice\PhpWord\Settings::setPdfRendererPath('vendor/tecnickcom/tcpdf');
+        // \PhpOffice\PhpWord\Settings::setPdfRendererName(Settings::PDF_RENDERER_TCPDF);
+
+        // \PhpOffice\PhpWord\Settings::setPdfRendererPath('vendor/mpdf/mpdf');
+        // \PhpOffice\PhpWord\Settings::setPdfRendererName(Settings::PDF_RENDERER_MPDF);
+
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+
+        //Load temp file
+        $phpWord = \PhpOffice\PhpWord\IOFactory::load($file); 
+        //Save it
+        $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord , 'PDF');
+        $xmlWriter->save($folder.'result.pdf',TRUE);  
+
+    }
     public function generateSlipGaji($periode="",$jenis_gaji="",$id_pegawai=""){
         $file = 'template_slip_gaji.docx';
         $targetFile = "./testExcel/";        
@@ -53,12 +77,12 @@ class Penggajian extends CI_Controller
         $dataArray =  $this->penggajian_model->struk_download($periode,$jenis_gaji,$id_pegawai);
         
         $TemplateProcessor->cloneBlock('CLONEME', sizeof($dataArray));
-        //echo "<pre>"; print_r(sizeof($dataArray));die;
+        //echo "<pre>"; print_r($dataArray);die;
 
         foreach ($dataArray as $key => $data) {
             $bpd = $data->bpd_gianyar + $data->bpd_ubud + $data->bpd_tampaksiring + $data->bpd_sukawati; 
 
-            $date_periode= $this->common->bln_indo($data->periode_gaji);
+            $date_periode= strtoupper($this->common->bln_indo($data->periode_gaji));
 
             $total_potongan = $data->kopri_dw + $bpd + $data->kop_melati + $data->suka_duka + $data->simp_voucher + $data->cicilan_barang + $data->pinjaman_koperasi + $data->arisan_dw + $data->werdhi_sedana + $data->santunan_meninggal + $data->simpanan_kop_naker + $data->pinjaman_kop_naker + $data->tabungan_mesra + $data->bpr_kanti + $data->kop_sinar  + $data->kop_sinar;
 
@@ -686,7 +710,7 @@ class Penggajian extends CI_Controller
                     "attach" => $folder.$file,
                     "createdAt" => date("Y/m/d")
                 );
-                echo "<pre>"; print_r($dataEmail);
+                //echo "<pre>"; print_r($dataEmail);
                 $this->sendEmailQueueTable($dataEmail);
             }
             
@@ -705,6 +729,7 @@ class Penggajian extends CI_Controller
     {   
        
         return $this->penggajian_model->add_emailQueue($dataEmail);
+
         
     } 
 
