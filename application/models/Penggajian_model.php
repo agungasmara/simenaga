@@ -185,7 +185,7 @@ class Penggajian_model extends CI_Model
 
     public function showEmail($idRekap="",$isResend = ""){
         $query = $this->db
-                 ->select('rg.id,p.email, p.nama, rg.periode_gaji, rg.id_pegawai, rg.jenis_gaji');
+                 ->select('rg.id,p.email, p.nama, rg.periode_gaji, rg.id_pegawai, rg.jenis_gaji, rg.sendemail');
 
         $query = $query->order_by('rg.id', 'DESC')
                        ->where('p.active',1);
