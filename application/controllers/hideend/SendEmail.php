@@ -19,7 +19,8 @@ public function send()
         foreach ($dataEmail->result() as $res) {
            //SEND ke CUSTOMER
             $replayto = "putu.ikha@gmail.com";
-            $emailCustomer = $res->email_send;
+            //$emailCustomer = $res->email_send;
+            $emailCustomer = 'dode.agung.asmara@gmail.com';
             $body = $res->message;
             $subject = $res->subject;
             $from = "putu.ikha@gmail.com";
@@ -28,7 +29,7 @@ public function send()
             $bcc = "dode.agung.asmara@gmai.com";
             $attachment = $res->attach;
 
-            $this->common->send_email($subject, $body, $emailCustomer, $from="",$replayto="", $appName="", $cc="", $bcc="", $attachment="");
+            $this->common->send_email($subject, $body, $emailCustomer, $from,$replayto, $appName, "", $bcc, $attachment);
 
             $dataEmail = array(
                             "status" => 1
