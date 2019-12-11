@@ -671,7 +671,7 @@ class Penggajian extends CI_Controller
         $folder = "./testExcel/"; 
         foreach ($dataEmail as $value) {
             $dataUpdate = array(
-                            "sendemail" => 1
+                            "sendemail" => $value->sendemail + 1
                         );
 
             $this->penggajian_model->updateRekap($value->id,$dataUpdate);
