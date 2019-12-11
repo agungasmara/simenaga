@@ -514,6 +514,8 @@ tablePenggajian = {
                     },       
                     sendEmailGaji(id){
 
+                        console.log("Table Penggajian")
+
                         if (typeof id === "undefined"){
                             id=""
                         }

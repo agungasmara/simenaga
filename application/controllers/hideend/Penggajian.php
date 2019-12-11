@@ -686,6 +686,7 @@ class Penggajian extends CI_Controller
                     "attach" => $folder.$file,
                     "createdAt" => date("Y/m/d")
                 );
+                echo "<pre>"; print_r($dataEmail);
                 $this->sendEmailQueueTable($dataEmail);
             }
             
