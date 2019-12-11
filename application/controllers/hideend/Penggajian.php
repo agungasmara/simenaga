@@ -454,13 +454,9 @@ class Penggajian extends CI_Controller
         echo json_encode($result);
     }
 
-    public function showAll($jenisAkun=''){
-        $userid = '';
-        if($jenisAkun!=="verify"){
-            $userid=$this->user->info->ID;
-        }
+    public function showAll($txtSearch=''){
         
-        $query =  $this->penggajian_model->showAll($userid);
+        $query =  $this->penggajian_model->showAll($txtSearch);
         $result = [];
         if($query){
             $result['penggajian'] = $query;

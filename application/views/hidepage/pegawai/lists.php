@@ -31,10 +31,12 @@
                     <div class="box box-info">
                         <div class="box-header">
                             <div class="col-xs-4">
-                                <h3 class="box-title">Rekap Seluruh Gaji</h3>
+                                <h3 class="box-title">Rekap Seluruh Pegawai</h3>
                             </div>
                             <div class="col-xs-7">
-                                
+                                <div class="">
+                                    <input placeholder="Search"type="search" class="form-control" v-model="textSearch" @keyup="searchPegawai()" name="search">
+                                </div>
                             </div>
                             <div class="col-xs-1">
                                 <div class="pull-right">
@@ -46,7 +48,7 @@
                         </div>
                         
                         <table-pegawai 
-                            ref="'tablePegawai'" 
+                            ref="tablePegawai"
                             v-on:send-data="getDatachoosePegawai"
                             v-on:send-jenisform="getJenisForm"
                         />   

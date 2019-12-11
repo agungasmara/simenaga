@@ -34,7 +34,9 @@
                                 <h3 class="box-title">Rekap Seluruh Gaji</h3>
                             </div>
                             <div class="col-xs-6">
-                                
+                                <div class="">
+                                    <input placeholder="Search"type="search" class="form-control" v-model="textSearch" @keyup="searchRekap()" name="search">
+                                </div>
                             </div>
                             <div class="col-xs-1">
                                 <div class="pull-right">

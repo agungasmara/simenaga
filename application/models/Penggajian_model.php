@@ -160,10 +160,14 @@ class Penggajian_model extends CI_Model
     } 
 
 
-  public function showAll(){
+  public function showAll($txtSearch=''){
         $query = $this->db
                  ->select('jg.nama jenis_gaji_nama,rg.*,rg.id idrekap,p.*,p.nama nama,total_potongan,sisa_pendapatan');
+        
 
+        if($txtSearch!=''){
+            $query = $query->like('p.nama', $txtSearch);  
+        }               
         $query = $query->order_by('rg.id', 'DESC')
                        ->where('p.active',1)
                       ->from('rekap_gaji rg')

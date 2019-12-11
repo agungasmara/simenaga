@@ -73,11 +73,15 @@ class Pegawai_model extends CI_Model
     } 
 
 
-  public function showAll(){
+  public function showAll($txtSearch=''){
         $query = $this->db
                  ->select('*');
-
+        if($txtSearch!=''){
+            $query = $query->like('nama', $txtSearch);  
+        }         
+        
         $query = $query->order_by('id', 'DESC')
+                      ->where('p.active',1)
                       ->from('pegawai p')
                       ->get();
                       

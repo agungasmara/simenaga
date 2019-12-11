@@ -442,7 +442,47 @@ tablePenggajian = {
             created(){
                 this.showAll()
             },
-            methods:{
+            methods:{  
+
+                    //START SEARCH
+                    refresh(){
+                        this.showAll(this.textSearch); //for preventing
+                    },
+
+                    showAll(textSearch){    
+                        if(typeof textSearch === "undefined"){
+                            this.textSearch = ""
+                        }else{
+                            this.textSearch = textSearch
+                        }
+
+                        console.log(textSearch)
+                        let self = this
+                        axios.post(this.url+"/hideend/penggajian/showAll/"+this.textSearch).then(function(response){
+                                 if(response.data.penggajian == null){
+                                        self.penggajian = []
+                                        console.log("error show all")
+                                    }else{
+                                        self.getData(response.data.penggajian);
+                                    }
+                        })
+                    },
+                    getData(pegawai){
+                        this.emptyResult = false; // become false if has a record
+                        this.totalData = pegawai.length //get total of user
+                        this.pegawai = pegawai.slice(this.currentPage * this.rowCountPage, (this.currentPage * this.rowCountPage) + this.rowCountPage); //slice the result for pagination
+                        
+                         // if the record is empty, go back a page
+                        if(this.pegawai.length == 0 && this.currentPage > 0){ 
+                            console.log("if the record is empty, go back a page")
+                            this.pageUpdate(self.currentPage - 1)
+                            this.clearAll();  
+                        }
+                    },
+                    pageUpdate(pageNumber){
+                        this.currentPage = pageNumber; //receive currentPage number came from pagination template
+                        this.refresh()  
+                    },//END SEARCH
 
                     downloadStruk(data) {
                         let self = this
@@ -511,16 +551,6 @@ tablePenggajian = {
                     },
                     refresh(){
                         this.showAll(); //for preventing
-                    },
-                    showAll(){ 
-                        let self = this
-                        axios.post(this.url+"/hideend/penggajian/showAll").then(function(response){
-                                 if(response.data.penggajian == null){
-                                        console.log("error show all")
-                                    }else{
-                                        self.getData(response.data.penggajian);
-                                    }
-                        })
                     },
                     getData(penggajian){
                         this.emptyResult = false; // become false if has a record
@@ -994,10 +1024,14 @@ var v = new Vue({
         showPenggajianDetail: false,
         showPenggajianTable: true,
         jenis_potongan:"bpd_gianyar",
-        textJenis:"BPD Gianyar"
+        textJenis:"BPD Gianyar",
+        textSearch:"",
     },
 
     methods: {
+        searchRekap(){
+             this.$refs.tablePenggajian.showAll(this.textSearch)
+        },
         sendEmailGaji(){
             this.$refs.tablePenggajian.sendEmailGaji()
         },

@@ -126,9 +126,9 @@ class Pegawai extends CI_Controller
 	}
 
 
-	public function showAll(){
+	public function showAll($txtSearch=''){
 
-       	$query =  $this->Pegawai_model->showAll();
+       	$query =  $this->Pegawai_model->showAll($txtSearch);
         
        	$result = [];
         if($query){

@@ -40,6 +40,7 @@ tablePegawai = {
                         'butuhsurvey':false,
                         'butuhkelengkapan':false,
                     },
+                    textSearch:""
                     
                  }
 
@@ -48,25 +49,24 @@ tablePegawai = {
                 this.showAll()
             },
             methods:{
-
-                    customFormatter(date) {
-                        return moment(date).format('MMMM YYYY');
-                    }, 
-                    gotoEditData(id){
-                        window.location.href = myUrl + 'hideend/pegawai/index/'+id;  
-                    },
+                    //START SEARCH
                     refresh(){
-                        this.showAll(); //for preventing
+                        this.showAll(this.textSearch); //for preventing
                     },
-                    showAll(){ 
-                        let self = this
-                        axios.post(this.url+"/hideend/pegawai/showAll").then(function(response){
-                                 if(response.data.pegawai == null){
+                    showAll(textSearch){    
+                        if(typeof textSearch === "undefined"){
+                            this.textSearch = ""
+                        }else{
+                            this.textSearch = textSearch
+                        }
 
+                        console.log(textSearch)
+                        let self = this
+                        axios.post(this.url+"/hideend/pegawai/showAll/"+this.textSearch).then(function(response){
+                                 if(response.data.pegawai == null){
+                                        self.pegawai = []
                                         console.log("error show all")
                                     }else{
-                                        console.log("response.data.pegawai")
-                                        console.log(response.data.pegawai)
                                         self.getData(response.data.pegawai);
                                     }
                         })
@@ -78,6 +78,7 @@ tablePegawai = {
                         
                          // if the record is empty, go back a page
                         if(this.pegawai.length == 0 && this.currentPage > 0){ 
+                            console.log("if the record is empty, go back a page")
                             this.pageUpdate(self.currentPage - 1)
                             this.clearAll();  
                         }
@@ -85,6 +86,12 @@ tablePegawai = {
                     pageUpdate(pageNumber){
                         this.currentPage = pageNumber; //receive currentPage number came from pagination template
                         this.refresh()  
+                    },//END SEARCH
+                    customFormatter(date) {
+                        return moment(date).format('MMMM YYYY');
+                    }, 
+                    gotoEditData(id){
+                        window.location.href = myUrl + 'hideend/pegawai/index/'+id;  
                     },
                     selectpegawai(data){
                         this.choosePegawai = data
@@ -367,15 +374,15 @@ var v = new Vue({
         url: myUrl,
         verifikasi:{},
         jenisForm:{
-                        'verifikasi':false,
-                        'uploaddokumen':false,
-                        'butuhsurvey':false,
-                        'butuhkelengkapan':false,
+                    'verifikasi':false,
+                    'uploaddokumen':false,
+                    'butuhsurvey':false,
+                    'butuhkelengkapan':false,
                     },
-
         isShowFormKANWIL: false,
         isShowFormKPKNL: false,           
         indexFormWizard:0,
+        textSearch:"",
         choosePegawai:{},
         emptyResult: false,
         successMSG: '',
@@ -393,7 +400,9 @@ var v = new Vue({
     },
 
     methods: {
-
+        searchPegawai(){
+            this.$refs.tablePegawai.showAll(this.textSearch)
+        },    
         getIndexFormStep(data) {
             console.log("getIndexFormStep")
             console.log(data.step+1)            
