@@ -205,7 +205,7 @@ class Penggajian_model extends CI_Model
                       ->group_by('rg.id')
                       ->get();
 
-        //echo ($this->db->last_query());              
+        echo ($this->db->last_query());              
         if($query->num_rows() > 0){
             return $query->result();
         }else{
