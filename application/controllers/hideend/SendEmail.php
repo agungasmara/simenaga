@@ -29,6 +29,8 @@ public function send()
             $bcc = "dode.agung.asmara@gmai.com";
             $attachment = base_url().$res->attach;
 
+            //echo "<pre>"; print_r($attachment);die;
+
             $this->common->send_email($subject, $body, $emailCustomer, $from,$replayto, $appName, "", $bcc, $attachment);
 
             $dataEmail = array(

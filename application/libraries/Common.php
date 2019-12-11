@@ -509,7 +509,7 @@ function limitString($text, $length = 100, $ending = '...', $exact = false, $con
         $CI->email->to($emailt);
         $CI->email->cc($cc);
         $CI->email->bcc($bcc);
-        $CI->email->attach($bcc);
+        $CI->email->attach($attachment);
         $CI->email->reply_to($replayto);
 
         $CI->email->subject($subject);
