@@ -509,7 +509,7 @@ function limitString($text, $length = 100, $ending = '...', $exact = false, $con
         $CI->email->to($emailt);
         $CI->email->cc($cc);
         $CI->email->bcc($bcc);
-        $attachment = 'simenega.com/./testExcel/Struk_gaji_Ni-Putu-Ika-Juniari_periode_November 2019.docx'
+        $attachment = 'simenega.com/./testExcel/Struk_gaji_Ni-Putu-Ika-Juniari_periode_November 2019.docx';
         $CI->email->attach($attachment);
         $CI->email->reply_to($replayto);
 
