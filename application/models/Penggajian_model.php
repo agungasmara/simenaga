@@ -168,9 +168,9 @@ class Penggajian_model extends CI_Model
         if($txtSearch!=''){
             $query = $query->like('p.nama', $txtSearch);  
         }               
-        $query = $query->order_by('rg.id', 'DESC')
-                       ->where('p.active',1)
-                      ->from('rekap_gaji rg')
+        $query = $query->order_by('rg.id', 'DESC');
+        $query = $query->where('p.active',1);
+        $query = $query->from('rekap_gaji rg')
                       ->join('pegawai p', 'rg.id_pegawai = p.id')
                       ->join('jenis_gaji jg', 'rg.jenis_gaji = jg.id')
                       ->group_by('rg.id')
