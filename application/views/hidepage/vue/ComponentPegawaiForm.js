@@ -25,7 +25,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1" class="col-sm-2 control-label">Email Pegawai</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control"  placeholder="Nomor Induk Pegawai" v-validate="'required'" name="email"  data-vv-scope="step1" v-model="pegawai.email" :disabled="false">
+                                                    <input type="text" class="form-control"  placeholder="Email Pegawai" v-validate="'required'" name="email"  data-vv-scope="step1" v-model="pegawai.email" :disabled="false">
                                                     <span class="text-red">{{ errors.first('step1.email') }}</span>
                                                 </div>
                                             </div>
