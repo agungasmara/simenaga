@@ -128,6 +128,9 @@ class Pegawai extends CI_Controller
 
 	public function showAll($txtSearch=''){
 
+        if($txtSearch!=''){            
+           $txtSearch = urldecode($txtSearch);
+        }
        	$query =  $this->Pegawai_model->showAll($txtSearch);
         
        	$result = [];
@@ -245,6 +248,7 @@ class Pegawai extends CI_Controller
         $dataRekap = array(
                 'nama' => $this->input->post('nama'),
                 'nip' => $this->input->post('nip'),
+                'email' => $this->input->post('email'),
                 'jabatan' => $this->input->post('jabatan'),
                 'golongan' => $this->input->post('golongan'),
                 'rekening' => $this->input->post('rekening'),

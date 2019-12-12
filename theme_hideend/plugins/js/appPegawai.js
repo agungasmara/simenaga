@@ -138,6 +138,7 @@ detailPegawai =  {
                                 created_at:0,
                                 pendapatan:0,
                                 golongan:"",
+                                email:"",
                                 nip:"",
                                 id:"",
                                 id_pegawai:"",

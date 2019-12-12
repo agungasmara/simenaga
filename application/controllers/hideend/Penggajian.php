@@ -479,7 +479,10 @@ class Penggajian extends CI_Controller
     }
 
     public function showAll($txtSearch=''){
-        
+
+        if($txtSearch!=''){            
+           $txtSearch = urldecode($txtSearch);
+        }
         $query =  $this->penggajian_model->showAll($txtSearch);
         $result = [];
         if($query){

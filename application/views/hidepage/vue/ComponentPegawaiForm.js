@@ -23,7 +23,14 @@
                                         </div>
                                         <div v-if="true">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1" class="col-sm-2 control-label">NIP Petugas</label>
+                                                <label for="exampleInputEmail1" class="col-sm-2 control-label">Email Pegawai</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control"  placeholder="Nomor Induk Pegawai" v-validate="'required'" name="email"  data-vv-scope="step1" v-model="pegawai.email" :disabled="false">
+                                                    <span class="text-red">{{ errors.first('step1.email') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1" class="col-sm-2 control-label">NIP Pegawai</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" class="form-control"  placeholder="Nomor Induk Pegawai" v-validate="'required'" name="nip_petugas"  data-vv-scope="step1" v-model="pegawai.nip" :disabled="false">
                                                     <span class="text-red">{{ errors.first('step1.nip_petugas') }}</span>
@@ -51,7 +58,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1" class="col-sm-2 control-label">Tunjangan Jabatan</label>
+                                                <label for="exampleInputEmail1" class="col-sm-2 control-label">Tunjangan Kesejahteraan</label>
                                                 <div class="col-sm-5">
                                                      <money  type="text" v-bind="money" class="form-control" v-validate="'required|numeric'" name="tunjangan_jabatan" v-model="pegawai.tunjangan_jabatan" placeholder="" data-vv-scope="step1" :disabled="false"> </money>
                                                     <span class="text-red">{{ errors.first('step1.tunjangan_jabatan') }}</span>
