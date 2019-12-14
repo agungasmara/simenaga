@@ -69,7 +69,7 @@ class Penggajian extends CI_Controller
 
     }
     public function generateSlipGaji($periode="",$jenis_gaji="",$id_pegawai=""){
-        $file = 'template_slip_gaji.docx';
+        $file = 'template_slip_gaji_fix.docx';
         $targetFile = "./testExcel/";        
         $targetSaveFile = "./testExcel/";
 

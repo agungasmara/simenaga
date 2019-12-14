@@ -20,7 +20,7 @@ public function send()
            //SEND ke CUSTOMER
             $replayto = "putu.ikha@gmail.com";
             //$emailCustomer = $res->email_send;
-            $emailCustomer = 'dode.agung.asmara@gmail.com';
+            $emailCustomer = $res->email_send;
             $body = $res->message;
             $subject = $res->subject;
             $from = "putu.ikha@gmail.com";
