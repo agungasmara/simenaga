@@ -15,7 +15,7 @@
 		"php-curl-class/php-curl-class": "*",
 		"phpoffice/phpspreadsheet": "^1.10",
 		"phpoffice/phpword": "v0.16.*",
-		"dompdf/dompdf": "^0.8.0",
+		"dompdf/dompdf": "^1.2.1",
 		"tecnickcom/tcpdf": "*",
 		"mpdf/mpdf": "*",
 		"paragonie/random_compat":"*"
